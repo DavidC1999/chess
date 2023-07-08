@@ -8,6 +8,7 @@ import GameState, { Phase } from "./GameState";
 import View from "./View";
 import Knight from "./pieces/Knight";
 import Rook from "./pieces/Rook";
+import Bishop from "./pieces/Bishop";
 
 const cellsX = 8;
 const cellsY = 8;
@@ -59,14 +60,14 @@ AssetRepository.init();
 
 function createInitialBoard(): Array<IPiece>[] {
     var output: Array<IPiece>[] = [
-        [ Rook.top()   , Knight.top()   , null         , null         , null         , null         , Knight.top()   , Rook.top()    ],
-        [ Pawn.top()   , Pawn.top()     , Pawn.top()   , Pawn.top()   , Pawn.top()   , Pawn.top()   , Pawn.top()     , Pawn.top()    ],
-        [ null         , null           , null         , null         , null         , null         , null           , null          ],
-        [ null         , null           , null         , null         , null         , null         , null           , null          ],
-        [ null         , null           , null         , null         , null         , null         , null           , null          ],
-        [ null         , null           , null         , null         , null         , null         , null           , null          ],
-        [ Pawn.bottom(), Pawn.bottom()  , Pawn.bottom(), Pawn.bottom(), Pawn.bottom(), Pawn.bottom(), Pawn.bottom()  , Pawn.bottom() ],
-        [ Rook.bottom(), Knight.bottom(), null         , null         , null         , null         , Knight.bottom(), Rook.bottom() ],
+        [ Rook.top()   , Knight.top()   , Bishop.top()   , null         , null         , Bishop.top()   , Knight.top()   , Rook.top()    ],
+        [ Pawn.top()   , Pawn.top()     , Pawn.top()     , Pawn.top()   , Pawn.top()   , Pawn.top()     , Pawn.top()     , Pawn.top()    ],
+        [ null         , null           , null           , null         , null         , null           , null           , null          ],
+        [ null         , null           , null           , null         , null         , null           , null           , null          ],
+        [ null         , null           , null           , null         , null         , null           , null           , null          ],
+        [ null         , null           , null           , null         , null         , null           , null           , null          ],
+        [ Pawn.bottom(), Pawn.bottom()  , Pawn.bottom()  , Pawn.bottom(), Pawn.bottom(), Pawn.bottom()  , Pawn.bottom()  , Pawn.bottom() ],
+        [ Rook.bottom(), Knight.bottom(), Bishop.bottom(), null         , null         , Bishop.bottom(), Knight.bottom(), Rook.bottom() ],
     ];
 
     if (output.length != cellsY || output[0].length != cellsX) {
