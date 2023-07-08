@@ -50,7 +50,7 @@ export class MoveTake implements IMove {
     public readonly takeX: number;
     public readonly takeY: number;
 
-    constructor(fromX: number, fromY: number, toX: number, toY: number, takeX: number, takeY: number) {
+    constructor(fromX: number, fromY: number, toX: number, toY: number, takeX: number = toX, takeY: number = toY) {
         this.fromX = fromX;
         this.fromY = fromY;
         this.toX = toX;

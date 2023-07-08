@@ -18,30 +18,24 @@ export default class Knight implements IPiece {
     public getMoves(gameState: GameState, x: number, y: number): Move[] {
         let output = [];
 
-        if (gameState.getPiece(x + 1, y + 2) == null)
-            output.push(new Move(x, y, x + 1, y + 2));
+        const coords = [
+            [x + 1, y + 2],
+            [x - 1, y + 2],
+            [x + 2, y + 1],
+            [x + 2, y - 1],
+            [x - 1, y - 2],
+            [x + 1, y - 2],
+            [x - 2, y + 1],
+            [x - 2, y - 1],
+        ]
 
-        if (gameState.getPiece(x - 1, y + 2) == null)
-            output.push(new Move(x, y, x - 1, y + 2));
-
-        if (gameState.getPiece(x + 2, y + 1) == null)
-            output.push(new Move(x, y, x + 2, y + 1));
-
-        if (gameState.getPiece(x + 2, y - 1) == null)
-            output.push(new Move(x, y, x + 2, y - 1));
-
-        if (gameState.getPiece(x - 1, y - 2) == null)
-            output.push(new Move(x, y, x - 1, y - 2));
-
-        if (gameState.getPiece(x + 1, y - 2) == null)
-            output.push(new Move(x, y, x + 1, y - 2));
-
-        if (gameState.getPiece(x - 2, y + 1) == null)
-            output.push(new Move(x, y, x - 2, y + 1));
-
-        if (gameState.getPiece(x - 2, y - 1) == null)
-            output.push(new Move(x, y, x - 2, y - 1));
-
+        for (const [jumpX, jumpY] of coords) {
+            const otherPiece = gameState.getPiece(jumpX, jumpY);
+            if (otherPiece == null)
+                output.push(new Move(x, y, jumpX, jumpY));
+            else if(otherPiece.getTeam() != this.getTeam())
+                output.push(new MoveTake(x, y, jumpX, jumpY));
+        }
 
         return output;
     }

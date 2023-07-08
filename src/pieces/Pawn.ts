@@ -23,7 +23,7 @@ export default class Pawn implements IPiece {
 
         if (gameState.getPiece(x, y + delta) == null) {
             output.push(new Move(x, y, x, y + delta));
-            
+
             if (!this.movedBefore && gameState.getPiece(x, y + delta * 2) == null) {
                 output.push(new Move(x, y, x, y + delta * 2));
             }
@@ -31,12 +31,12 @@ export default class Pawn implements IPiece {
 
         let otherPiece = gameState.getPiece(x - 1, y + delta);
         if (otherPiece != null && otherPiece.getTeam() != this.getTeam()) {
-            output.push(new MoveTake(x, y, x - 1, y + delta, x - 1, y + delta));
+            output.push(new MoveTake(x, y, x - 1, y + delta));
         }
 
         otherPiece = gameState.getPiece(x + 1, y + delta);
         if (otherPiece != null && otherPiece.getTeam() != this.getTeam()) {
-            output.push(new MoveTake(x, y, x + 1, y + delta, x + 1, y + delta));
+            output.push(new MoveTake(x, y, x + 1, y + delta));
         }
 
         return output;
