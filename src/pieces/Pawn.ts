@@ -1,7 +1,7 @@
 import GameState from "../GameState";
 import { ImageId } from "../generated/ImageId";
 import AssetRepository from "../ImageRepository";
-import IMove, { Move } from "../moves";
+import IMove, { Move, MoveTake } from "../moves";
 import IPiece, { Team } from "./IPiece";
 
 export default class Pawn implements IPiece {
@@ -17,16 +17,25 @@ export default class Pawn implements IPiece {
     }
 
     public getMoves(gameState: GameState, x: number, y: number): Move[] {
-        let offset = this.team == Team.TOP ? 1 : -1;
+        debugger;
+        let delta = this.team == Team.TOP ? 1 : -1;
 
         let output = [];
 
-        if (gameState.board[y + offset][x] == null) {
-            output.push(new Move(x, y, x, y + offset));
+        if (gameState.getPiece(x, y + delta) == null) {
+            output.push(new Move(x, y, x, y + delta));
         }
 
-        if (!this.movedBefore && gameState.board[y + offset * 2][x] == null) {
-            output.push(new Move(x, y, x, y + offset * 2));
+        if (!this.movedBefore && gameState.getPiece(x, y + delta * 2) == null) {
+            output.push(new Move(x, y, x, y + delta * 2));
+        }
+
+        if (gameState.getPiece(x - 1, y + delta) != null) {
+            output.push(new MoveTake(x, y, x - 1, y + delta, x - 1, y + delta));
+        }
+
+        if (gameState.getPiece(x + 1, y + delta) != null) {
+            output.push(new MoveTake(x, y, x + 1, y + delta, x + 1, y + delta));
         }
 
         return output;

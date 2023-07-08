@@ -26,7 +26,7 @@ gameState.registerCallback(Phase.INITIALIZING, (oldPhase) => {
 view.registerBoardClickEvent((cellX, cellY) => {
     switch(gameState.getPhase()) {
         case Phase.PLAYING:
-            let piece = gameState.board[cellY][cellX];
+            let piece = gameState.getPiece(cellX, cellY);
             if (piece != null && piece.getTeam() == gameState.turn) {
                 gameState.possibleMoves = piece.getMoves(gameState, cellX, cellY);
                 if (gameState.possibleMoves.length <= 0) return;

@@ -1,5 +1,5 @@
 import GameState, { Phase } from "./GameState";
-import IMove, { Move, MoveType } from "./moves";
+import IMove, { Move, MoveTake, MoveType } from "./moves";
 import IPiece from "./pieces/IPiece";
 import Renderer from "./Renderer";
 
@@ -70,25 +70,51 @@ export default class View {
     }
 
     private drawPossibleMoves(moves: IMove[]) {
-        for (let move of moves) {
-            switch(move.getType()) {
-                case MoveType.MOVE:
-                    const padding = 10;
+        const padding = 10;
 
-                    var simpleMove = move as Move;
+        for (let move of moves) {
+            switch (move.getType()) {
+                case MoveType.MOVE:
+                    const simpleMove = move as Move;
                     this.renderer.renderRect(
                         this.boardX + simpleMove.fromX * this.cellPixelWidth + padding,
                         this.boardY + simpleMove.fromY * this.cellPixelHeight + padding,
                         this.cellPixelWidth - padding * 2,
                         this.cellPixelHeight - padding * 2,
-                        "red");
+                        "green");
 
                     this.renderer.renderSolidRect(
                         this.boardX + simpleMove.toX * this.cellPixelWidth + padding,
                         this.boardY + simpleMove.toY * this.cellPixelHeight + padding,
                         this.cellPixelWidth - padding * 2,
                         this.cellPixelHeight - padding * 2,
+                        "yellow");
+                    break;
+                case MoveType.TAKE:
+                    const takeMove = move as MoveTake;
+                    this.renderer.renderRect(
+                        this.boardX + takeMove.fromX * this.cellPixelWidth + padding,
+                        this.boardY + takeMove.fromY * this.cellPixelHeight + padding,
+                        this.cellPixelWidth - padding * 2,
+                        this.cellPixelHeight - padding * 2,
                         "green");
+
+                    this.renderer.renderRect(
+                        this.boardX + takeMove.takeX * this.cellPixelWidth + padding,
+                        this.boardY + takeMove.takeY * this.cellPixelHeight + padding,
+                        this.cellPixelWidth - padding * 2,
+                        this.cellPixelHeight - padding * 2,
+                        "red");
+                    
+                    if (takeMove.toX != takeMove.takeX || takeMove.toY != takeMove.takeY) {
+                        this.renderer.renderSolidRect(
+                            this.boardX + takeMove.toX * this.cellPixelWidth + padding,
+                            this.boardY + takeMove.toY * this.cellPixelHeight + padding,
+                            this.cellPixelWidth - padding * 2,
+                            this.cellPixelHeight - padding * 2,
+                            "yellow");
+                    }
+                    break;
             }
         }
     }

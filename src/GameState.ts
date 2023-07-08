@@ -36,6 +36,25 @@ export default class GameState {
         return this.phase;
     }
 
+    public getPiece(x: number, y: number): IPiece {
+        if (this.board.length > y) {
+            const row = this.board[y];
+            if (row.length > x) {
+                return row[x];
+            }
+        }
+        return null;
+    }
+
+    public setPiece(x: number, y: number, piece: IPiece) {
+        if (this.board.length > y) {
+            const row = this.board[y];
+            if (row.length > x) {
+                this.board[y][x] = piece;
+            }
+        }
+    }
+
     constructor(initialBoard: Array<IPiece>[]) {
         this.board = initialBoard;
     }
