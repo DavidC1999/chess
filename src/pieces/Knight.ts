@@ -30,6 +30,8 @@ export default class Knight implements IPiece {
         ]
 
         for (const [jumpX, jumpY] of coords) {
+            if (jumpX < 0 || jumpX >= gameState.getBoardWidth() || jumpY < 0 || jumpY >= gameState.getBoardHeight())
+                continue;
             const otherPiece = gameState.getPiece(jumpX, jumpY);
             if (otherPiece == null)
                 output.push(new Move(x, y, jumpX, jumpY));
