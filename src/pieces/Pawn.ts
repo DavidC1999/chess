@@ -23,10 +23,10 @@ export default class Pawn implements IPiece {
 
         if (gameState.getPiece(x, y + delta) == null) {
             output.push(new Move(x, y, x, y + delta));
-        }
-
-        if (!this.movedBefore && gameState.getPiece(x, y + delta * 2) == null) {
-            output.push(new Move(x, y, x, y + delta * 2));
+            
+            if (!this.movedBefore && gameState.getPiece(x, y + delta * 2) == null) {
+                output.push(new Move(x, y, x, y + delta * 2));
+            }
         }
 
         let otherPiece = gameState.getPiece(x - 1, y + delta);
