@@ -37,9 +37,9 @@ export default class GameState {
     }
 
     public getPiece(x: number, y: number): IPiece {
-        if (this.board.length > y) {
+        if (y >= 0 && this.board.length > y) {
             const row = this.board[y];
-            if (row.length > x) {
+            if (x >= 0 && row.length > x) {
                 return row[x];
             }
         }
@@ -47,9 +47,9 @@ export default class GameState {
     }
 
     public setPiece(x: number, y: number, piece: IPiece) {
-        if (this.board.length > y) {
+        if (y >= 0 && this.board.length > y) {
             const row = this.board[y];
-            if (row.length > x) {
+            if (x >= 0 && row.length > x) {
                 this.board[y][x] = piece;
             }
         }

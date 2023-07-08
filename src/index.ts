@@ -6,6 +6,7 @@ import Pawn from "./pieces/Pawn";
 import AssetRepository from "./ImageRepository";
 import GameState, { Phase } from "./GameState";
 import View from "./View";
+import Knight from "./pieces/Knight";
 
 const cellsX = 8;
 const cellsY = 8;
@@ -15,7 +16,7 @@ const view = new View(cellsX, cellsY);
 const gameState = new GameState(createInitialBoard());
 
 gameState.registerCallback(Phase.INITIALIZING, (oldPhase) => {
-    gameState.turn = Team.TOP;
+    gameState.turn = Team.BOTTOM;
     gameState.setPhase(Phase.PLAYING);
 
     view.drawGameState(gameState);
@@ -57,14 +58,14 @@ AssetRepository.init();
 
 function createInitialBoard(): Array<IPiece>[] {
     var output: Array<IPiece>[] = [
-        [ null         , null         , null         , null         , null         , null         , null         , null          ],
-        [ Pawn.top()   , Pawn.top()   , Pawn.top()   , Pawn.top()   , Pawn.top()   , Pawn.top()   , Pawn.top()   , Pawn.top()    ],
-        [ null         , null         , null         , null         , null         , null         , null         , null          ],
-        [ null         , null         , null         , null         , null         , null         , null         , null          ],
-        [ null         , null         , null         , null         , null         , null         , null         , null          ],
-        [ null         , null         , null         , null         , null         , null         , null         , null          ],
-        [ Pawn.bottom(), Pawn.bottom(), Pawn.bottom(), Pawn.bottom(), Pawn.bottom(), Pawn.bottom(), Pawn.bottom(), Pawn.bottom() ],
-        [ null         , null         , null         , null         , null         , null         , null         , null          ],
+        [ null         , Knight.top()   , null         , null         , null         , null         , Knight.top()   , null          ],
+        [ Pawn.top()   , Pawn.top()     , Pawn.top()   , Pawn.top()   , Pawn.top()   , Pawn.top()   , Pawn.top()     , Pawn.top()    ],
+        [ null         , null           , null         , null         , null         , null         , null           , null          ],
+        [ null         , null           , null         , null         , null         , null         , null           , null          ],
+        [ null         , null           , null         , null         , null         , null         , null           , null          ],
+        [ null         , null           , null         , null         , null         , null         , null           , null          ],
+        [ Pawn.bottom(), Pawn.bottom()  , Pawn.bottom(), Pawn.bottom(), Pawn.bottom(), Pawn.bottom(), Pawn.bottom()  , Pawn.bottom() ],
+        [ null         , Knight.bottom(), null         , null         , null         , null         , Knight.bottom(), null          ],
     ];
 
     if (output.length != cellsY || output[0].length != cellsX) {

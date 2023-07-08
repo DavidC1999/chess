@@ -17,7 +17,6 @@ export default class Pawn implements IPiece {
     }
 
     public getMoves(gameState: GameState, x: number, y: number): Move[] {
-        debugger;
         let delta = this.team == Team.TOP ? 1 : -1;
 
         let output = [];
@@ -30,11 +29,13 @@ export default class Pawn implements IPiece {
             output.push(new Move(x, y, x, y + delta * 2));
         }
 
-        if (gameState.getPiece(x - 1, y + delta) != null) {
+        let otherPiece = gameState.getPiece(x - 1, y + delta);
+        if (otherPiece != null && otherPiece.getTeam() != this.getTeam()) {
             output.push(new MoveTake(x, y, x - 1, y + delta, x - 1, y + delta));
         }
 
-        if (gameState.getPiece(x + 1, y + delta) != null) {
+        otherPiece = gameState.getPiece(x + 1, y + delta);
+        if (otherPiece != null && otherPiece.getTeam() != this.getTeam()) {
             output.push(new MoveTake(x, y, x + 1, y + delta, x + 1, y + delta));
         }
 
@@ -42,7 +43,7 @@ export default class Pawn implements IPiece {
     }
 
     public getImage(): HTMLImageElement {
-        return AssetRepository.getImage(this.team == Team.TOP ? ImageId.PAWNW2 : ImageId.PAWNB2);
+        return AssetRepository.getImage(this.team == Team.TOP ? ImageId.PAWNB2 : ImageId.PAWNW2);
     }
 
     public setMoved() {
