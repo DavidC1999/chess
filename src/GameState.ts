@@ -55,6 +55,14 @@ export default class GameState {
         }
     }
 
+    public getBoardWidth(): number {
+        return this.board[0].length;
+    }
+
+    public getBoardHeight(): number {
+        return this.board.length;
+    }
+
     constructor(initialBoard: Array<IPiece>[]) {
         this.board = initialBoard;
     }

@@ -16,7 +16,7 @@ export default class Pawn implements IPiece {
         return this.team;
     }
 
-    public getMoves(gameState: GameState, x: number, y: number): Move[] {
+    public getMoves(gameState: GameState, x: number, y: number): IMove[] {
         let delta = this.team == Team.TOP ? 1 : -1;
 
         let output = [];
